@@ -51,21 +51,21 @@
 makeCacheMatrix <- function(x = matrix()) {
   i <- NULL                   # Initialize cached inverse as NULL
 
-  ## Define 4 functions:##
-  set <- function(y) {        # Binds x matrix VALUE to closure
+  ## Define 4 functions:
+  set <- function(y) {        # Binds x matrix VALUE to function closure
     x <<- y                   #    environment
     i <<- NULL                # Invalidates any cached value
   }
   get <- function() x         # Returns x value binded to closure, else
                               # Returns x's value from global environment
-  set.inverse <- function(inverse) {  #bind (cache) inverse to closure,
-    i <<- inverse                     #replacing i=NULL
+  set.inverse <- function(inverse) {  # Bind (cache) inverse to closure,
+    i <<- inverse                     #  replacing i=NULL
   }
   get.inverse <- function() { # returns cached inverse value, else NULL 
     i
   }
 
-  ## Store 4 functions in a list:##
+  ## Store and return 4 functions in a list:
   list(set = set, get = get,      # FUNCTION OUTPUT: returns list of 
        set.inverse = set.inverse, #   functions, binded to i value & x
        get.inverse = get.inverse)
@@ -89,12 +89,11 @@ cacheSolve <- function(x, ...) {  # x argument is list of functions from
   i <- x$get.inverse()        # Pulls cached inverse value, else NULL 
   if(!is.null(i)) {           # If i is not NULL, inverse already cached
     message("getting cached data")
-    return(i)                 # Return cached inverse and stop function
-  }
+    return(i)                 # FUNCTION OUTPUT: If inverse cached 
+  }                           #  already, return inverse & stop function
   matrixA <- x$get()          # If i is NULL (i.e. not calculated), pull
                               #   matrix name binded to functions
-  i <- solve(matrixA, ...)
-  x$set.inverse(i)
-  ##  Returns a matrix that is the inverse of 'x', just calculated.
-  i
+  i <- solve(matrixA, ...)    # Calculate matrix nverse.
+  x$set.inverse(i)            # Cache matrix nverse.
+  i                           # FUNCTION OUTPUT: returns matrix inverse
 }
