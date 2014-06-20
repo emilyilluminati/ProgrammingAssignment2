@@ -1,16 +1,14 @@
-#-----------------------------------------------------------------------
-## Name: 
-  ## makeCacheMatrix & cacheSolve
+## Name: makeCacheMatrix & cacheSolve
 
 ## Purpose:
   ## Matrix inverse calculations can be computationally 
   ##  expensive for large matrices.
   ## The functions makeCacheMatrix and cacheSolve allow 
-  ##   a user to optimize run-time.
+  ##  a user to optimize run-time.
 
 ## Description:
   ## The function makeCacheMatrix creates a special
-  ##   "matrix" that can store (cache) its own inverse.
+  ##  "matrix" that can store (cache) its own inverse.
   ## Once the inverse of this special matrix is calculated
   ##  with the function cacheSolve, it can be used for future needs.
 
@@ -48,8 +46,8 @@
 ##  These functions retrieve and store the value of an inverse once 
 ##   calculated, store the value of the original matrix once set,  
 ##   and allow a user to reset original matrix and inverse.
-##  Efficiently, no inverse calculations are performed until these 
-##   functions are called when needed.
+##  For efficiency, no inverse calculations are performed until these 
+##   functions are called by cacheSolve, as needed.
 makeCacheMatrix <- function(x = matrix()) {
   i <- NULL                   # Initialize cached inverse as NULL
 
